@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "729307755550",
+    "project_id": "fluttertwittergl",
+    "storage_bucket": "fluttertwittergl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729307755550:android:ac51ba7fd1851804eb6a0f",
+        "android_client_info": {
+          "package_name": "com.glsample.flutter_twitter_glsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729307755550-16la3aom5aerdsuuhejlktf27e69ueoh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMKdpS-pH5_ePoF0d626CTX-XsXwy6RLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729307755550-16la3aom5aerdsuuhejlktf27e69ueoh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729307755550-8bd3akvo365mranfeu9ntiht8n4sa9kt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.glsample.flutterTwitterGlsample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
