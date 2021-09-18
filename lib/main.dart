@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_twitter_glsample/blocs/simple_bloc_observer.dart';
 import 'package:flutter_twitter_glsample/config/custom_router.dart';
 import 'package:flutter_twitter_glsample/repositories/auth/auth_repository.dart';
+import 'package:flutter_twitter_glsample/repositories/storage/storage_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
 import 'package:flutter_twitter_glsample/screens/screens.dart';
 
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         RepositoryProvider<UserRepository>(
           create: (_) => UserRepository(),
+        ),
+        RepositoryProvider<StorageRepository>(
+          create: (_) => StorageRepository(),
         ),
       ],
       child: MultiBlocProvider(
