@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
 import 'package:flutter_twitter_glsample/config/custom_router.dart';
 import 'package:flutter_twitter_glsample/enums/bottom_nav_item.dart';
+import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
 import 'package:flutter_twitter_glsample/screens/create_post/create_post_screen.dart';
 import 'package:flutter_twitter_glsample/screens/feed/feed_screen.dart';
 import 'package:flutter_twitter_glsample/screens/notifications/notifications_screen.dart';
+import 'package:flutter_twitter_glsample/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
 import 'package:flutter_twitter_glsample/screens/search/search_screen.dart';
 
@@ -53,7 +57,15 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.notifications:
         return NotificationsScreen();
       case BottomNavItem.profile:
-        return ProfileScreen();
+        return BlocProvider<ProfileBloc>(
+          create: (_) => ProfileBloc(
+            userRepository: context.read<UserRepository>(),
+            authBloc: context.read<AuthBloc>(),
+          )..add(
+            ProfileLoadUser(userId: context.read<AuthBloc>().state.user.uid),
+          ),
+          child: ProfileScreen(),
+        );
       default:
         return Scaffold();
     }
