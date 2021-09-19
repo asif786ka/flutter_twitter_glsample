@@ -52,6 +52,10 @@ class EditProfileScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          elevation: 0.0,
+          titleSpacing: 10.0,
+          centerTitle: true,
           title: Text('Edit Profile'),
         ),
         body: BlocConsumer<EditProfileCubit, EditProfileState>(
@@ -140,9 +144,7 @@ class EditProfileScreen extends StatelessWidget {
       title: 'Profile Image',
     );
     if (pickedFile != null) {
-      context
-          .read<EditProfileCubit>()
-          .profileImageChanged(File(pickedFile.path));
+      context.read<EditProfileCubit>().profileImageChanged(pickedFile);
     }
   }
 

@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
 import 'package:flutter_twitter_glsample/config/custom_router.dart';
 import 'package:flutter_twitter_glsample/enums/bottom_nav_item.dart';
+import 'package:flutter_twitter_glsample/repositories/post/post_repository.dart';
+import 'package:flutter_twitter_glsample/repositories/storage/storage_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
 import 'package:flutter_twitter_glsample/screens/create_post/create_post_screen.dart';
+import 'package:flutter_twitter_glsample/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:flutter_twitter_glsample/screens/feed/feed_screen.dart';
 import 'package:flutter_twitter_glsample/screens/notifications/notifications_screen.dart';
 import 'package:flutter_twitter_glsample/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
 import 'package:flutter_twitter_glsample/screens/search/search_screen.dart';
-
 
 class TabNavigator extends StatelessWidget {
   static const String tabNavigatorRoot = '/';
@@ -53,7 +55,14 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.search:
         return SearchScreen();
       case BottomNavItem.create:
-        return CreatePostScreen();
+        return BlocProvider<CreatePostCubit>(
+          create: (context) => CreatePostCubit(
+            postRepository: context.read<PostRepository>(),
+            storageRepository: context.read<StorageRepository>(),
+            authBloc: context.read<AuthBloc>(),
+          ),
+          child: CreatePostScreen(),
+        );
       case BottomNavItem.notifications:
         return NotificationsScreen();
       case BottomNavItem.profile:
