@@ -1,6 +1,17 @@
 # flutter_twitter_glsample
 
-A new Flutter project.
+A new Flutter project which mimics Twitter application.
+1) Login with firebase.
+2) Signup with firebase.
+3) Create post for the user.
+4) Search users.
+5) Profile screen with user details.
+6) Edit profile details.
+7) Logout
+
+Project follows the bloc architecture using bloc library.
+
+https://bloclibrary.dev/#/
 
 ## Getting Started
 
