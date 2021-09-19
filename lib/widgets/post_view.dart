@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_twitter_glsample/models/models.dart';
 import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
 import 'package:flutter_twitter_glsample/widgets/user_profile_image.dart';
+import 'package:flutter_twitter_glsample/extensions/extensions.dart';
 
 class PostView extends StatelessWidget {
   final Post post;
@@ -92,7 +93,7 @@ class PostView extends StatelessWidget {
               ),
               const SizedBox(height: 4.0),
               Text(
-                post.date.timeZoneName,
+                post.date.timeAgo(),
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,

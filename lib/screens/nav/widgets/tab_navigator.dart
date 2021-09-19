@@ -12,6 +12,7 @@ import 'package:flutter_twitter_glsample/screens/feed/feed_screen.dart';
 import 'package:flutter_twitter_glsample/screens/notifications/notifications_screen.dart';
 import 'package:flutter_twitter_glsample/screens/profile/bloc/profile_bloc.dart';
 import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
+import 'package:flutter_twitter_glsample/screens/search/cubit/search_cubit.dart';
 import 'package:flutter_twitter_glsample/screens/search/search_screen.dart';
 
 class TabNavigator extends StatelessWidget {
@@ -53,7 +54,11 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.feed:
         return FeedScreen();
       case BottomNavItem.search:
-        return SearchScreen();
+        return BlocProvider<SearchCubit>(
+          create: (context) =>
+              SearchCubit(userRepository: context.read<UserRepository>()),
+          child: SearchScreen(),
+        );
       case BottomNavItem.create:
         return BlocProvider<CreatePostCubit>(
           create: (context) => CreatePostCubit(
