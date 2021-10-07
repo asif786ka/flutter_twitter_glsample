@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
 import 'package:flutter_twitter_glsample/cubits/liked_posts/liked_posts_cubit.dart';
+import 'package:flutter_twitter_glsample/screens/comments/comments_screen.dart';
 import 'package:flutter_twitter_glsample/repositories/post/post_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
 import 'package:flutter_twitter_glsample/screens/profile/widgets/profile_info.dart';
@@ -167,7 +168,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                       (context, index) {
                     final post = state.posts[index];
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () => Navigator.of(context).pushNamed(
+                        CommentsScreen.routeName,
+                        arguments: CommentsScreenArgs(post: post),
+                      ),
                       child: CachedNetworkImage(
                         imageUrl: post.imageUrl,
                         fit: BoxFit.cover,

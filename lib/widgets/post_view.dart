@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_twitter_glsample/screens/comments/comments_screen.dart';
 import 'package:flutter_twitter_glsample/models/models.dart';
 import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
 import 'package:flutter_twitter_glsample/widgets/user_profile_image.dart';
@@ -69,7 +70,10 @@ class PostView extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.comment_outlined),
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).pushNamed(
+                CommentsScreen.routeName,
+                arguments: CommentsScreenArgs(post: post),
+              ),
             ),
           ],
         ),

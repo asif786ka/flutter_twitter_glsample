@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_twitter_glsample/screens/comments/comments_screen.dart';
 import 'package:flutter_twitter_glsample/screens/edit_profile/edit_profile_screen.dart';
 import 'package:flutter_twitter_glsample/screens/login/login_screen.dart';
 import 'package:flutter_twitter_glsample/screens/nav/nav_screen.dart';
@@ -35,6 +36,8 @@ class CustomRouter {
         return ProfileScreen.route(args: settings.arguments);
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(args: settings.arguments);
+      case CommentsScreen.routeName:
+        return CommentsScreen.route(args: settings.arguments);
       default:
         return _errorRoute();
     }
