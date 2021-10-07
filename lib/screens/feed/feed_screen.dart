@@ -27,7 +27,11 @@ class _FeedScreenState extends State<FeedScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Instagram'),
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 0.0,
+            titleSpacing: 10.0,
+            centerTitle: true,
+            title: const Text('Feed'),
             actions: [
               if (state.posts.isEmpty && state.status == FeedStatus.loaded)
                 IconButton(
