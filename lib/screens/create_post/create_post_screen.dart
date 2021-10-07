@@ -131,6 +131,8 @@ class CreatePostScreen extends StatelessWidget {
         postImage != null &&
         !isSubmitting) {
       context.read<CreatePostCubit>().submit();
+    } else {
+      context.read<CreatePostCubit>().emptyImageOrText();
     }
   }
 }

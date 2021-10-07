@@ -63,4 +63,13 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   void reset() {
     emit(CreatePostState.initial());
   }
+
+  void emptyImageOrText(){
+    emit(
+        state.copyWith(
+          status: CreatePostStatus.error,
+          failure: Failure(message: 'Please select image and fill text to create post'),
+        ),
+    );
+  }
 }
