@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
 import 'package:flutter_twitter_glsample/helpers/image_helper.dart';
+import 'package:flutter_twitter_glsample/screens/profile/profile_screen.dart';
 import 'package:flutter_twitter_glsample/widgets/error_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -36,6 +38,12 @@ class CreatePostScreen extends StatelessWidget {
                   duration: const Duration(seconds: 1),
                   content: const Text('Post Created'),
                 ),
+              );
+
+              //Take the user to profile screen to see the posts in gridview or listview.
+              Navigator.of(context).pushNamed(
+                ProfileScreen.routeName,
+                arguments: ProfileScreenArgs(userId: context.read<AuthBloc>().state.user.uid),
               );
             } else if (state.status == CreatePostStatus.error) {
               showDialog(
