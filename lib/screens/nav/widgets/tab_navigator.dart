@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
 import 'package:flutter_twitter_glsample/config/custom_router.dart';
+import 'package:flutter_twitter_glsample/cubits/liked_posts/liked_posts_cubit.dart';
 import 'package:flutter_twitter_glsample/enums/bottom_nav_item.dart';
 import 'package:flutter_twitter_glsample/repositories/post/post_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/storage/storage_repository.dart';
@@ -57,6 +58,7 @@ class TabNavigator extends StatelessWidget {
           create: (context) => FeedBloc(
             postRepository: context.read<PostRepository>(),
             authBloc: context.read<AuthBloc>(),
+            likedPostsCubit: context.read<LikedPostsCubit>(),
           )..add(FeedFetchPosts()),
           child: FeedScreen(),
         );
@@ -83,6 +85,7 @@ class TabNavigator extends StatelessWidget {
             userRepository: context.read<UserRepository>(),
             postRepository: context.read<PostRepository>(),
             authBloc: context.read<AuthBloc>(),
+            likedPostsCubit: context.read<LikedPostsCubit>(),
           )..add(
             ProfileLoadUser(userId: context.read<AuthBloc>().state.user.uid),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_twitter_glsample/cubits/liked_posts/liked_posts_cubit.dart';
 import 'package:flutter_twitter_glsample/widgets/error_dialog.dart';
 import 'package:flutter_twitter_glsample/widgets/post_view.dart';
 
@@ -61,7 +62,7 @@ class _FeedScreenState extends State<FeedScreen> {
             elevation: 0.0,
             titleSpacing: 10.0,
             centerTitle: true,
-            title: const Text('Feed'),
+            title: Text('Feed'),
             actions: [
               if (state.posts.isEmpty && state.status == FeedStatus.loaded)
                 IconButton(
@@ -85,6 +86,7 @@ class _FeedScreenState extends State<FeedScreen> {
         return RefreshIndicator(
           onRefresh: () async {
             context.read<FeedBloc>().add(FeedFetchPosts());
+            context.read<LikedPostsCubit>().clearAllLikedPosts();
             return true;
           },
           child: ListView.builder(
@@ -92,7 +94,22 @@ class _FeedScreenState extends State<FeedScreen> {
             itemCount: state.posts.length,
             itemBuilder: (BuildContext context, int index) {
               final post = state.posts[index];
-              return PostView(post: post, isLiked: false);
+              final likedPostsState = context.watch<LikedPostsCubit>().state;
+              final isLiked = likedPostsState.likedPostIds.contains(post.id);
+              final recentlyLiked =
+              likedPostsState.recentlyLikedPostIds.contains(post.id);
+              return PostView(
+                post: post,
+                isLiked: isLiked,
+                recentlyLiked: recentlyLiked,
+                onLike: () {
+                  if (isLiked) {
+                    context.read<LikedPostsCubit>().unlikePost(post: post);
+                  } else {
+                    context.read<LikedPostsCubit>().likePost(post: post);
+                  }
+                },
+              );
             },
           ),
         );

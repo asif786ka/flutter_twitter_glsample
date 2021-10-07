@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_twitter_glsample/blocs/auth/auth_bloc.dart';
+import 'package:flutter_twitter_glsample/cubits/liked_posts/liked_posts_cubit.dart';
 import 'package:flutter_twitter_glsample/models/models.dart';
 import 'package:flutter_twitter_glsample/repositories/post/post_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
@@ -15,6 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserRepository _userRepository;
   final PostRepository _postRepository;
   final AuthBloc _authBloc;
+  final LikedPostsCubit _likedPostsCubit;
 
   StreamSubscription<List<Future<Post>>> _postsSubscription;
 
@@ -22,9 +24,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     @required UserRepository userRepository,
     @required PostRepository postRepository,
     @required AuthBloc authBloc,
+    @required LikedPostsCubit likedPostsCubit,
   })  : _userRepository = userRepository,
         _postRepository = postRepository,
         _authBloc = authBloc,
+        _likedPostsCubit = likedPostsCubit,
         super(ProfileState.initial());
 
   @override
@@ -95,6 +99,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ProfileUpdatePosts event,
       ) async* {
     yield state.copyWith(posts: event.posts);
+    final likedPostIds = await _postRepository.getLikedPostIds(
+      userId: _authBloc.state.user.uid,
+      posts: event.posts,
+    );
+    _likedPostsCubit.updateLikedPosts(postIds: likedPostIds);
   }
 
   Stream<ProfileState> _mapProfileFollowUserToState() async* {
