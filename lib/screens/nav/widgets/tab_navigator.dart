@@ -7,6 +7,8 @@ import 'package:flutter_twitter_glsample/enums/bottom_nav_item.dart';
 import 'package:flutter_twitter_glsample/repositories/post/post_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/storage/storage_repository.dart';
 import 'package:flutter_twitter_glsample/repositories/user/user_repository.dart';
+import 'package:flutter_twitter_glsample/screens/allusers_posts/allusers_posts_bloc.dart';
+import 'package:flutter_twitter_glsample/screens/allusers_posts/allusers_posts_screen.dart';
 import 'package:flutter_twitter_glsample/screens/create_post/create_post_screen.dart';
 import 'package:flutter_twitter_glsample/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:flutter_twitter_glsample/screens/feed/bloc/feed_bloc.dart';
@@ -54,13 +56,16 @@ class TabNavigator extends StatelessWidget {
   Widget _getScreen(BuildContext context, BottomNavItem item) {
     switch (item) {
       case BottomNavItem.feed:
-        return BlocProvider<FeedBloc>(
-          create: (context) => FeedBloc(
+        return BlocProvider<AllUsersPostsBloc>(
+          create: (_) => AllUsersPostsBloc(
+            userRepository: context.read<UserRepository>(),
             postRepository: context.read<PostRepository>(),
             authBloc: context.read<AuthBloc>(),
             likedPostsCubit: context.read<LikedPostsCubit>(),
-          )..add(FeedFetchPosts()),
-          child: FeedScreen(),
+          )..add(
+            AllUsersPostsLoadUser(userId: context.read<AuthBloc>().state.user.uid),
+          ),
+          child: AllUsersPostsScreen(),
         );
       case BottomNavItem.search:
         return BlocProvider<SearchCubit>(
